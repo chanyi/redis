@@ -96,9 +96,6 @@ public class DataOperImpl implements DataOper {
     }
 
 
-
-
-
     private <T> T handler(Function<Jedis,T> fun){
         Jedis jedis = null;
         try{
