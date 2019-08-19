@@ -5,7 +5,6 @@ import com.simba.redis.util.InitRedis;
 import com.simba.redis.util.SerializeUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
@@ -80,11 +79,21 @@ public class DataOperImpl implements DataOper {
      */
     @Override
     public String getHash(String tableName,String key){
-       return handler(jedis -> jedis.hget(tableName,key));
+        return handler(jedis -> jedis.hget(tableName,key));
     }
 
 
+    /**
+     * 元素添加进集合
+     * @param key
+     * @param value
+     * @return
+     */
+    @Override
+    public Long addSet(String key,String... value){
 
+        return handler(jedis -> jedis.sadd(key,value));
+    }
 
 
 

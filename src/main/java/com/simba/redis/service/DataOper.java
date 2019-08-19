@@ -20,4 +20,5 @@ public interface DataOper {
 
     void setHash(String key, Map<String,String> hash);
 
+    Long addSet(String key,String... value);
 }
