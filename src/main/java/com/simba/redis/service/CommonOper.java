@@ -97,7 +97,7 @@ public interface CommonOper {
 
 
     /**
-     * 返回key所存储的value值的类型
+     * 返回key所存储的value值的类型,类型有(string ,hash,等)
      * @param key
      * @return
      */
