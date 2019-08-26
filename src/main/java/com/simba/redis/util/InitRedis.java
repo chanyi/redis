@@ -14,6 +14,8 @@ public class InitRedis {
     private Start start;
 
     public Jedis getJedis(){
+        System.out.println("初始化redis");
+        System.out.println("redis配置："+start.toString());
         //判断是否存在需要密码
         if(!start.getPassword().isEmpty()){
             return new JedisPool(geneConfig(start),start.getHost(),start.getPort(),start.getTimeOut(),start.getPassword()).getResource();

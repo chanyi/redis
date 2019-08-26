@@ -12,7 +12,9 @@ public class Subscriber extends JedisPubSub {
 
    private final static Log logger = LogFactory.getLog(Subscriber.class);
 
-    public Subscriber(){}
+    public Subscriber(){
+        super();
+    }
 
     //实现抽象方法
 

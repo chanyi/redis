@@ -7,6 +7,7 @@ import com.simba.redis.util.InitRedis;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
 
@@ -16,6 +17,7 @@ import java.util.function.Function;
 /**
  * 订阅发布实现类
  */
+@Service
 public class PubSubImpl implements PubSub {
 
     private final  static Log logger = LogFactory.getLog(PubSubImpl.class);
@@ -23,31 +25,39 @@ public class PubSubImpl implements PubSub {
     @Autowired
     private InitRedis initRedis;
 
-//    private Subscriber subscriber = new Subscriber();
-
     /**
 	 * 订阅
-     * @param channel
+     * @param channels
      */
     @Override
-    public void  sub(JedisPubSub jedisPubSub,String... channel){
+    public void  sub(Subscriber subscriber ,String... channels){
+        Jedis jedis = initRedis.getJedis();
+        try{
+            jedis.subscribe(subscriber,channels);
+        }catch (Exception e){
+    	    logger.info("订阅出错");
 
-    	handler(jedis -> jedis.subscribe(jedisPubSub,channel));
+        }finally {
+    	    jedis.close();
+        }
+
     }
 
-
-
-
-    private <T> T handler(Function<Jedis,T> fun){
-        Jedis jedis = null;
+    /**
+     * 发布
+     * @param channel
+     * @param message
+     */
+    @Override
+    public void pub(String channel,String message){
+        Jedis jedis = initRedis.getJedis();
         try{
-            jedis =initRedis.getJedis();
-            return fun.apply(jedis);
+            jedis.publish(channel,message);
         }catch (Exception e){
-            logger.info("redis init failed" + e.getMessage());
-            throw new RuntimeException(e);
+            logger.info("发布出错");
         }finally {
             jedis.close();
         }
     }
+
 }
