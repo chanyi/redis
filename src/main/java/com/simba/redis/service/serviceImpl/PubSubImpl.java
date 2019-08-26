@@ -52,12 +52,16 @@ public class PubSubImpl implements PubSub {
     public void pub(String channel,String message){
         Jedis jedis = initRedis.getJedis();
         try{
-            jedis.publish(channel,message);
+            logger.info("频道："+channel+"===发送消息："+message);
+            Long pubCount = jedis.publish(channel,message);
+            logger.info("频道："+channel+"===返回："+pubCount);
         }catch (Exception e){
             logger.info("发布出错");
+            return;
         }finally {
             jedis.close();
         }
+        return;
     }
 
 }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "redis.start")
 public class Start {
     private  String host = "127.0.0.1";
-    private String password="123456";
+    private String password="";
     private  int port;
     private  int maxIdle;
     private  int maxTotal;

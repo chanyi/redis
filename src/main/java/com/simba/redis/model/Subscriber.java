@@ -35,7 +35,7 @@ public class Subscriber extends JedisPubSub {
      */
     @Override
     public void onSubscribe(String channel, int subscribedChannels) {
-        logger.info("订阅者取消了订阅频道："+channel);
+        logger.info("订阅者订阅了频道："+channel);
     }
 
     /**
@@ -45,7 +45,7 @@ public class Subscriber extends JedisPubSub {
      */
     @Override
     public void onUnsubscribe(String channel, int subscribedChannels) {
-        logger.info("订阅者取消了订阅频道："+channel);
+        logger.info("订阅者取消了频道："+channel);
     }
 
 }

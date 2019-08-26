@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import redis.clients.jedis.Jedis;
 
 @Controller
@@ -24,19 +25,18 @@ public class TestController {
 	@Autowired
 	private InitRedis initRedis;
 
-
-	RequestMapping("");
 	@Test
-	public void testPub(){
-		System.out.println("启动发布消息-->");
+	@RequestMapping("/testPub")
+	public void testPub(String message){
+		logger.info("启动发布消息-->");
+		pubSub.pub(testChannel,message);
+	}
+
+	@Test
+    @RequestMapping("/testSub")
+	public  void testSub(){
+		logger.info("启动订阅-->");
 		Subscriber subscriber = new Subscriber();
 		pubSub.sub(subscriber,testChannel);
 	}
-
-	@Test
-	public  void testSub(){
-		System.out.println("启动订阅-->");
-		pubSub.pub(testChannel,"testMessage");
-	}
-
 }
