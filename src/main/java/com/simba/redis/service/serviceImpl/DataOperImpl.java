@@ -303,8 +303,4 @@ public class DataOperImpl implements DataOper {
             jedis.close();
         }
     }
-
-    private <T> T handlerMulti(){
-
-    }
 }
