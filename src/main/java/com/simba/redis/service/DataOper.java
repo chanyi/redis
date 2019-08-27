@@ -17,6 +17,8 @@ public interface DataOper {
 
     void setStringIsNotExist(String key,String value);
 
+    void setStringIsNotExistWithExpire(String key,String value,int seconds);
+
     String getRangeValue(String key,int startOfferset,int endOfferset);
 
     String getAndset(String key,String newValue);

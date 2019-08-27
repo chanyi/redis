@@ -7,6 +7,7 @@ import com.simba.redis.util.SerializeUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.function.Function;
 /**
  * 数据操作实现类
  */
+@Component
 public class CommonOperImpl implements CommonOper {
 
     private final  static Log logger = LogFactory.getLog(CommonOperImpl.class);

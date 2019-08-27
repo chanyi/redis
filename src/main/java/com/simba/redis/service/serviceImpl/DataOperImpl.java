@@ -6,6 +6,7 @@ import com.simba.redis.util.SerializeUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
 import javax.swing.*;
@@ -17,6 +18,8 @@ import java.util.function.Function;
 /**
  * 数据操作实现类
  */
+
+@Component
 public class DataOperImpl implements DataOper {
 
     private final  static Log logger = LogFactory.getLog(DataOperImpl.class);
@@ -54,6 +57,15 @@ public class DataOperImpl implements DataOper {
     @Override
     public void setStringIsNotExist(String key,String value){
         handler(jedis -> jedis.setnx(key,value));
+    }
+
+    @Override
+    public  void setStringIsNotExistWithExpire(String key,String value,int seconds){
+        handler(jedis -> {
+            jedis.setnx(key,value);
+            return jedis.expire(key,seconds);
+        });
+
     }
 
     /**
@@ -290,5 +302,9 @@ public class DataOperImpl implements DataOper {
         }finally {
             jedis.close();
         }
+    }
+
+    private <T> T handlerMulti(){
+
     }
 }
