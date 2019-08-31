@@ -1,6 +1,7 @@
 package com.simba.redis.controller;
 
 import com.simba.redis.model.Subscriber;
+import com.simba.redis.service.LuaScript;
 import com.simba.redis.service.PubSub;
 import com.simba.redis.util.InitRedis;
 import org.apache.commons.logging.Log;
@@ -22,6 +23,9 @@ public class TestController {
 
 	@Autowired
 	private PubSub pubSub;
+
+	@Autowired
+	private LuaScript luaScript;
 
 	@Autowired
 	private InitRedis initRedis;
@@ -46,5 +50,15 @@ public class TestController {
 		logger.info("启动订阅-->");
 		Subscriber subscriber = new Subscriber();
 		pubSub.sub(subscriber,testChannel);
+	}
+
+
+	@Test
+	@RequestMapping("/testLua")
+	public  void testLuab(){
+		logger.info("测试Lua脚本-->");
+		//lua脚本，可以定义变量也可以写入文本文件中
+		String script = "";
+		luaScript.doScript(script,2,"test1","test2");
 	}
 }
